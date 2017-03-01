@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <img src="media/Logo.png" width="100%">
+      
+    <a href="http://www.accuweather.com/en/gb/north-greenwich/se10-0/weather-forecast/323472" class="aw-widget-legal">
+<!--
+By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
+-->
+</a><div id="awcc1488366797349" class="aw-widget-current"  data-locationkey="323472" data-unit="c" data-language="en-us" data-useip="false" data-uid="awcc1488366797349"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>  
+      
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: 51.501740, lng: 0.005766};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: uluru
+        });
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Ravensbourne cafe</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Ravensbourne cafe is perfect for all types of weather. <b>Phone:</b> 75762736128736283 '+
+            '</div>'+
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+         var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+          title: 'Uluru (Ayers Rock)'
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt33BUjbesb9n0mzaU_o5HcFmk_tVg7nI &callback=initMap">
+    </script>
+  </body>
+</html>
