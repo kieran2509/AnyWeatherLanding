@@ -3,8 +3,9 @@
   <head>
     <style>
        #map {
-        height: 400px;
-        width: 100%;
+        height: 300px;
+        width: 80%;
+        
        }
     </style>
   </head>
@@ -15,15 +16,15 @@
 <!--
 By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
 -->
-</a><div id="awcc1488366797349" class="aw-widget-current"  data-locationkey="323472" data-unit="c" data-language="en-us" data-useip="false" data-uid="awcc1488366797349"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>  
+</a><div id="awcc1488368019141" class="aw-widget-current"  data-locationkey="323472" data-unit="c" data-language="en-us" data-useip="true" data-uid="awcc1488368019141"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>
       
-    <div id="map"></div>
+    <center><div id="map"></div></center>
     <script>
       function initMap() {
-        var uluru = {lat: 51.501740, lng: 0.005766};
+        var ravensbourne = {lat: 51.501740, lng: 0.005766};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 15,
-          center: uluru
+          center: ravensbourne
         });
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
@@ -38,13 +39,39 @@ By accessing and/or using this code snippet, you agree to AccuWeather’s terms 
           content: contentString
         });
          var marker = new google.maps.Marker({
-          position: uluru,
+          position: ravensbourne,
           map: map,
-          title: 'Uluru (Ayers Rock)'
+          title: 'Ravensbourne cafe'
         });
         marker.addListener('click', function() {
           infowindow.open(map, marker);
         });
+          
+        var infoWindow = new google.maps.InfoWindow({map: map});
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('You are here!');
+            
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
       }
     </script>
     <script async defer
